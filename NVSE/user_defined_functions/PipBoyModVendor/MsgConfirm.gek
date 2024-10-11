@@ -1,0 +1,61 @@
+int iButton
+
+int iExpBoxes
+ref rExpBox
+string_var sMsgBox
+array_var aMEBRefs
+array_var aMEBNames
+array_var aForE
+
+begin Function {iButton}
+
+	; Purchase accepted
+	if iButton == 0
+
+		; Shipping enabled
+		if Goo1.AuxVarGetFlt "*PMV_INI" 1 == 0
+			sMsgBox = "^Weapon Mod Vendor^Shipping Location:"
+
+			; Express box arrays
+			if eval IsModLoaded "TaleOfTwoWastelands.esm"
+				aMEBRefs = Ar_List vMEPrimmRef1, vMENovacRef, vMEVegasRef, vMEGoodSpringsRef, vMEFreesideRef, (GFFM "TaleOfTwoWastelands.esm" "8F78"), (GFFM "TaleOfTwoWastelands.esm" "8F7B"), (GFFM "TaleOfTwoWastelands.esm" "8F7A"), (GFFM "TaleOfTwoWastelands.esm" "8F79"), (GFFM "TaleOfTwoWastelands.esm" "8F77")
+				aMEBNames = Ar_List "Primm", "Novac", "New Vegas Strip", "Goodsprings", "Freeside", "Paradise Falls", "Megaton", "Canterbury Commons", "Tenpenny Tower", "Rivet City"
+			else
+				aMEBRefs = Ar_List vMEPrimmRef1, vMENovacRef, vMEVegasRef, vMEGoodSpringsRef, vMEFreesideRef
+				aMEBNames = Ar_List "Primm", "Novac", "New Vegas Strip", "Goodsprings", "Freeside"
+			endif
+
+			; Build message box displaying all available express boxes
+			Goo1.AuxVarErase "*PVR_MEB"
+			Goo1.AuxVarErase "*PVR_MEB_Str"
+			foreach aForE <- aMEBRefs
+				rExpBox = *aForE
+				if rExpBox.GetVariable "bDiscovered"
+					iExpBoxes += 1
+					Goo1.AuxVarSetRef "*PVR_MEB" rExpBox -1
+					Goo1.AuxVarSetStr "*PVR_MEB_Str" (aMEBNames[aForE["key"]]) -1
+					sMsgBox += ("|" + aMEBNames[aForE["key"]])
+				endif
+			loop
+			if iExpBoxes > 0
+				sMsgBox += ("|") + (GetStringSetting "sCancel")
+			else
+				sMsgBox += "|None Available"
+			endif
+			Goo1.AuxVarSetFlt "*PMV_Flt" iExpBoxes 1
+
+			MessageBoxExAlt (CompileScript "PipBoyModVendor\Purchase.gek") "%z" sMsgBox
+
+		; Direct buy enabled
+		else
+			Player.AddItem (Goo1.AuxVarGetRef "*PMV_Ref")
+			Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0)
+			RefreshItemsList
+			SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\_value" (Player.GetItemCount Caps001)
+		endif
+	endif
+
+	Sv_Destruct sMsgBox
+	aMEBRefs = aMEBNames = aForE = Ar_Null
+
+end

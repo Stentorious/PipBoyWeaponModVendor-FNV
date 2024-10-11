@@ -1,0 +1,39 @@
+int	iMenuID
+int	iTileID
+string_var	sTileName
+
+float fPrice
+ref rMod
+
+begin Function {iMenuID, iTileID, sTileName}
+
+	; Selected weapon mod UI tile
+	sTileName = GetActiveUIComponentFullName
+
+	; Cache weapon mod ref
+	rMod = (GetSelectedItemRef).GBO
+	Goo1.AuxVarSetRef "*PMV_Ref" rMod
+
+	; Selected unowned weapon mod
+	if eval GetUIString (sTileName + "\string") == (LNGetName rMod) && GetUIFloatAlt (sTileName + "\*:0\alpha") < 200
+
+		; Calculate weapon mod price
+		if Goo1.AuxVarGetFlt "*PMV_INI" 2 == 1
+			fPrice = Ceil ((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0) * ((GetGS fBarterBuyBase) + (((GetMinOf 100 (Player.GetAV Barter)) * (GetGS fBarterBuyMult)) / 100)))
+		else
+			fPrice = Ceil ((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0))
+		endif
+		Goo1.AuxVarSetFlt "*PMV_Flt" fPrice 0
+
+		; Player has enough caps to purchase
+		if Player.GetItemCount Caps001 >= fPrice
+			MessageBoxExAlt (CompileScript "PipBoyModVendor\MsgConfirm.gek") "^Weapon Mod Vendor^%n: %g Caps|Purchase|%z" rMod fPrice (GetStringSetting "sCancel")
+		else
+			MessageBoxExAlt ({int iButton} => "") "^Weapon Mod Vendor^Insufficient Funds: Requires %g Caps!|%z" fPrice (GetStringSetting "sCancel")
+		endif
+
+	endif
+
+	sv_Destruct sTileName
+
+end

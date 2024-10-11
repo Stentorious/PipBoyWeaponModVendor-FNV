@@ -1,0 +1,39 @@
+int iButton
+
+ref rExpBox
+
+begin Function {iButton}
+
+	; Purchase accepted
+	if eval iButton < (Goo1.AuxVarGetFlt "*PMV_Flt" 1)
+
+		; Enabled item pick up
+		if vMojaveExpressControl.bSystemActive == 1
+			vMojaveExpressControl.bSystemActive = 2
+		endif
+		if IsModLoaded "TaleOfTwoWastelands.esm"
+			rExpBox = GFFM "TaleOfTwoWastelands.esm" "8F72"
+			if GetVariable "bSystemActive" rExpBox == 1
+				SetVariable "bSystemActive" 2 rExpBox
+			endif
+		endif
+
+		; Move purchased items to express box
+		rExpBox = Goo1.AuxVarGetRef "*PVR_MEB" iButton
+		rExpBox.AddItem (Goo1.AuxVarGetRef "*PMV_Ref")
+
+		; Update caps
+		Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0)
+		SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\_value" (Player.GetItemCount Caps001)
+
+		; Display purchase message
+		ClearMessageQueue
+		MessageExAlt 4 "Interface\Icons\message icons\glow_message_giftbox.dds|Shipping weapon mod to the %z %n." (Goo1.AuxVarGetStr "*PVR_MEB_Str" iButton) rExpBox
+
+	endif
+
+	; Erase aux
+	Goo1.AuxVarErase "*PVR_MEB"
+	Goo1.AuxVarErase "*PVR_MEB_Str"
+
+end

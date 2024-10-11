@@ -1,0 +1,12 @@
+<rect name="IMM_PlayerCapsInfo">
+	<include src="card_info.xml" />
+	<visible> 1 </visible>
+	<x>
+		<copy src="sibling" trait="x" />
+		<add src="sibling" trait="width" />
+		<sub> 165 </sub>
+	</x>
+	<width> 185 </width>
+	<_Title> &-sInventoryCaps; </_Title>
+	<_value> 1 </_value>
+</rect>
