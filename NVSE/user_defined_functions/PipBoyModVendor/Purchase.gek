@@ -23,7 +23,7 @@ begin Function {iButton}
 		rExpBox.AddItem (Goo1.AuxVarGetRef "*PMV_Ref")
 
 		; Update caps
-		Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0)
+		Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0) 1
 		SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\_value" (Player.GetItemCount Caps001)
 
 		; Display purchase message

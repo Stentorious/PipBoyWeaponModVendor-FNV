@@ -1,6 +1,6 @@
-int	iMenuID
-int	iTileID
-string_var	sTileName
+int iMenuID
+int iTileID
+string_var sTileName
 
 float fPrice
 ref rMod
