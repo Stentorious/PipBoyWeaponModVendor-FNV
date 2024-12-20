@@ -49,7 +49,7 @@ begin Function {iButton}
 		; Direct buy enabled
 		else
 			Player.AddItem (Goo1.AuxVarGetRef "*PMV_Ref")
-			Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0)
+			Player.RemoveItem Caps001 (Goo1.AuxVarGetFlt "*PMV_Flt" 0) 1
 			RefreshItemsList
 			SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\_value" (Player.GetItemCount Caps001)
 		endif
