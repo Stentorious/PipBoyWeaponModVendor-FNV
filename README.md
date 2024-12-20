@@ -20,6 +20,7 @@
 - Configurable via the included PurchaseWeaponMods.ini.
 
 ## Requirements
+- [xNVSE](https://www.nexusmods.com/newvegas/mods/67883) (6.3.3+)
 - [JIP LN NVSE](https://www.nexusmods.com/newvegas/mods/58277)
 - [JohnnyGuitar NVSE](https://www.nexusmods.com/newvegas/mods/66927)
 - [lStewieAl's Tweaks](https://www.nexusmods.com/newvegas/mods/66347)
