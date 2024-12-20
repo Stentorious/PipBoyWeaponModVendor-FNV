@@ -1,4 +1,4 @@
-;Pip-Boy Weapon Mod Vendor 2.2 - Stentorious
+; Pip-Boy Weapon Mod Vendor - Stentorious
 
 ; On game restart
 if Goo1.AuxVarGetFlt "*PMV_Init" != 1
@@ -24,9 +24,9 @@ if Goo1.AuxVarGetFlt "*PMV_Init" != 1
 	endif
 
 	; Load INI settings
-	Goo1.AuxVarSetFlt "*PMV_INI" (GetMaxOf 0 (GetINIFloat "General:fPriceMult" "PipBoyModVendor.ini")) 0
-	Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bDirectBuy" "PipBoyModVendor.ini") 1
-	Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bBarterCalc" "PipBoyModVendor.ini") 2
+	Goo1.AuxVarSetFlt "*PMV_INI" (GetMaxOf 0 (GetINIFloat "General:fPriceMult" "Stentorious\PipBoyModVendor.ini")) 0
+	Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bDirectBuy" "Stentorious\PipBoyModVendor.ini") 1
+	Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bBarterCalc" "Stentorious\PipBoyModVendor.ini") 2
 
 	; Inject Weapon Mod Vendor UI
 	InjectUIXML "ItemModMenu\GLOW_BRANCH\IMM_MainRect" "data\menus\prefabs\Stentorious\PipBoyModVendorCaps.xml"
