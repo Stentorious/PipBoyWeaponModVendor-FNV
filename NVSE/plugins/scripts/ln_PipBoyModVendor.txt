@@ -39,7 +39,7 @@ if Goo1.AuxVarGetFlt "*PMV_Init" != 1
 	endif
 
 	; Inject ySI caps icon
-	if eval GetINIFloat "ySI:bCapsIcon" "PipBoyUITweaks.ini" == 1 && FileExists "menus\ySI\ySI.xml"
+	if eval GetINIFloat "ySI:bCapsIcon" "Stentorious\PipBoyUITweaks.ini" && GetPluginVersion "yUI" >= 140 && FileExists "menus\ySI\ySI.xml"
 		InjectUIXML "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo" "data\menus\prefabs\Stentorious\ySICapIcon.xml"
 		SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\CI_TitleText\visible" 0
 		if eval IsModLoaded "DarNifiedUINV.esp"
