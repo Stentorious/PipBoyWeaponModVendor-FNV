@@ -11,27 +11,28 @@ begin Function {iMenuID, iTileID, sTileName}
 	sTileName = GetActiveUIComponentFullName
 
 	; Cache weapon mod ref
-	rMod = (GetSelectedItemRef).GBO
-	Goo1.AuxVarSetRef "*PMV_Ref" rMod
+	Goo1.AuxVarSetRef "*PMV_Ref" (rMod = (GetSelectedItemRef).GBO)
 
 	; Selected unowned weapon mod
 	if eval GetUIString (sTileName + "\string") == (LNGetName rMod) && GetUIFloatAlt (sTileName + "\*:0\alpha") < 200
+	else
+		sv_Destruct sTileName
+		return
+	endif
 
-		; Calculate weapon mod price
-		if Goo1.AuxVarGetFlt "*PMV_INI" 2 == 1
-			fPrice = Ceil ((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0) * ((GetGS fBarterBuyBase) + (((GetMinOf 100 (Player.GetAV Barter)) * (GetGS fBarterBuyMult)) / 100)))
-		else
-			fPrice = Ceil ((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0))
-		endif
-		Goo1.AuxVarSetFlt "*PMV_Flt" fPrice 0
+	; Calculate weapon mod price
+	if Goo1.AuxVarGetFlt "*PMV_INI" 2 == 1
+		fPrice = Flr (((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0) * ((GetGS fBarterBuyBase) + (((GetMinOf 100 (Player.GetAV Barter)) * (GetGS fBarterBuyMult)) / 100))) + 0.5)
+	else
+		fPrice = Flr (((GetValueAlt rMod) * (Goo1.AuxVarGetFlt "*PMV_INI" 0)) + 0.5)
+	endif
+	Goo1.AuxVarSetFlt "*PMV_Flt" fPrice 0
 
-		; Player has enough caps to purchase
-		if Player.GetItemCount Caps001 >= fPrice
-			MessageBoxExAlt (CompileScript "PipBoyModVendor\MsgConfirm.gek") "^Weapon Mod Vendor^%n: %g Caps|Purchase|%z" rMod fPrice (GetStringSetting "sCancel")
-		else
-			MessageBoxExAlt ({int iButton} => "") "^Weapon Mod Vendor^Insufficient Funds: Requires %g Caps!|%z" fPrice (GetStringSetting "sCancel")
-		endif
-
+	; Player has enough caps to purchase
+	if Player.GetItemCount Caps001 >= fPrice
+		MessageBoxExAlt (CompileScript "PipBoyModVendor\MsgConfirm.gek") "^Weapon Mod Vendor^%n: %g Caps|Purchase|%z" rMod fPrice (GetStringSetting "sCancel")
+	else
+		MessageBoxExAlt ({int iButton} => "") "^Weapon Mod Vendor^Insufficient Funds: Requires %g Caps!|%z" fPrice (GetStringSetting "sCancel")
 	endif
 
 	sv_Destruct sTileName
