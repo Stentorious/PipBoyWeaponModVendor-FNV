@@ -15,6 +15,10 @@ if GetPluginVersion "JohnnyGuitarNVSE" < 506
 	MessageBoxEx "Pip-Boy Weapon Mod Vendor missing requirement!%rInstall JohnnyGuitar NVSE 5.06+."
 	return
 endif
+if eval GetPluginVersion "ShowOffNVSE Plugin" < 145
+	MessageBoxEx "Tactical Freelook missing requirement!%rInstall latest ShowOff NVSE plugin."
+	return
+endif
 if GetPluginVersion "lStewieAl's Tweaks" < 905
 	MessageBoxEx "Pip-Boy Weapon Mod Vendor missing requirement!%rInstall lStewieAl's Tweaks 9.05+."
 	return
@@ -25,9 +29,10 @@ if eval IsModLoaded "The Weapon Mod Menu.esp"
 endif
 
 ; Load INI settings
-Goo1.AuxVarSetFlt "*PMV_INI" (GetMaxOf 0 (GetINIFloat "General:fPriceMult" "Stentorious\PipBoyModVendor.ini")) 0
-Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bDirectBuy" "Stentorious\PipBoyModVendor.ini") 1
-Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat "General:bBarterCalc" "Stentorious\PipBoyModVendor.ini") 2
+Goo1.AuxVarSetFlt "*PMV_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:fPriceMultiplier" "Stentorious\PipBoyModVendor.ini" 3)) 0
+Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat_Cached "General:iDeliveryMethod" "Stentorious\PipBoyModVendor.ini" 0) 1
+Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat_Cached "General:bBarterCalculation" "Stentorious\PipBoyModVendor.ini" 0) 2
+CloseFileSO "Stentorious\PipBoyModVendor.ini" 0
 
 ; Inject Weapon Mod Vendor UI
 InjectUIXML "ItemModMenu\GLOW_BRANCH\IMM_MainRect" "data\menus\prefabs\Stentorious\PipBoyModVendorCaps.xml"

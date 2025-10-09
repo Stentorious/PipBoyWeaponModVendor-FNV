@@ -1,0 +1,58 @@
+{
+	"modName": "PipBoyModVendor",
+	"displayName": "$modDisplayName",
+	"description": "$modDescription",
+	"saveFile": "Stentorious/PipBoyModVendor.ini",
+	"minMCMVersion": 1.00,
+	"minModVersion": 1.00,
+	"requirements": [
+		{ "type": "file", "file": "NVSE/plugins/scripts/ln_PipBoyModVendor.txt" }
+	],
+	"submenus": {
+		"0": {
+			"listTitle": "$modDisplayName",
+			"pageTitle": "$modDisplayName",
+			"active": 1,
+			"columns": 1,
+			"enable": 1,
+			"options": {
+				"1": {
+					"title": "$General",
+					"enable": 1,
+					"type": 0
+				},
+				"2": {
+					"title": "$ShippingMethod",
+					"type": 6,
+					"enable": 1,
+					"mouse": "$ShippingMethodMouse",
+					"vars": [ { "form": "Goo1", "auxVar": "*PMV_INI", "key": 1, "configINI": "General:iDeliveryMethod", "default": 0 } ],
+					"textOff": "$Dropbox",
+					"textOn": "$Inventory"
+				},
+				"3": {
+					"title": "$BarterCalculation",
+					"type": 5,
+					"enable": 1,
+					"mouse": "$BarterCalculationMouse",
+					"vars": [ { "form": "Goo1", "auxVar": "*PMV_INI", "key": 2, "configINI": "General:bBarterCalculation", "default": 0 } ]
+				},
+				"4": {
+					"title": "$PriceMultiplier",
+					"type": 2.5,
+					"enable": 1,
+					"suffix": "x",
+					"mouse": "$PriceMultiplierMouse",
+					"vars": [ { "form": "Goo1", "auxVar": "*PMV_INI", "key": 0, "configINI": "General:fPriceMultiplier", "default": 3 } ],
+					"scale": {
+						"valueDecimal": 1,
+						"valueIncrement": 0.1,
+						"valueMin": 1,
+						"valueMax": 10,
+						"suffix": "x"
+					}
+				}
+			}
+		}
+	}
+}
