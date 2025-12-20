@@ -1,0 +1,2 @@
+Stentorious\PipBoyModVendor\CapsInfo.xml::ItemModMenu::IMM_MainRect
+true

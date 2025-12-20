@@ -19,6 +19,10 @@ if eval GetPluginVersion "ShowOffNVSE Plugin" < 145
 	MessageBoxEx "Tactical Freelook missing requirement!%rInstall latest ShowOff NVSE plugin."
 	return
 endif
+if GetPluginVersion "UI Organizer Plugin" < 230
+	MessageBoxEx "Pip-Boy Weapon Mod Vendor missing requirement!%rInstall latest User Interface Organizer plugin."
+	return
+endif
 if GetPluginVersion "lStewieAl's Tweaks" < 905
 	MessageBoxEx "Pip-Boy Weapon Mod Vendor missing requirement!%rInstall lStewieAl's Tweaks 9.05+."
 	return
@@ -35,22 +39,12 @@ Goo1.AuxVarSetFlt "*PMV_INI" (GetINIFloat_Cached "General:bBarterCalculation" "S
 CloseFileSO "Stentorious\PipBoyModVendor.ini" 0
 
 ; Inject Weapon Mod Vendor UI
-InjectUIXML "ItemModMenu\GLOW_BRANCH\IMM_MainRect" "data\menus\prefabs\Stentorious\PipBoyModVendorCaps.xml"
 SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\x" (GetUIFloatAlt "InventoryMenu\GLOW_BRANCH\IM_MainRect\IM_HeadlineRect\IM_Headline_PlayerCapsInfo\x")
 SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\width" (GetUIFloatAlt "InventoryMenu\GLOW_BRANCH\IM_MainRect\IM_HeadlineRect\IM_Headline_PlayerCapsInfo\width")
 SetUIFloatAlt "ItemModMenu\font" (GetUIFloatAlt "InventoryMenu\font")
 if eval IsModLoaded "Vanilla UI Plus.esp"
 	SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\CI_TopLine\visible" 0
 	SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\CI_RightVert\visible" 0
-endif
-
-; Inject ySI caps icon
-if eval GetINIFloat "ySI:bCapsIcon" "Stentorious\PipBoyUITweaks.ini" && GetPluginVersion "yUI" >= 140 && FileExists "menus\ySI\ySI.xml"
-	InjectUIXML "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo" "data\menus\prefabs\Stentorious\ySICapIcon.xml"
-	SetUIFloatAlt "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\CI_TitleText\visible" 0
-	if eval IsModLoaded "DarNifiedUINV.esp"
-		ModUIFloat "ItemModMenu\GLOW_BRANCH\IMM_MainRect\IMM_PlayerCapsInfo\ySIImage\y" -1.5
-	endif
 endif
 
 ; Update caps display
