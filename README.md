@@ -1,7 +1,5 @@
 # PipBoy Weapon Mod Vendor
-<p align="center">
-    <img height="500px" src="https://staticdelivery.nexusmods.com/mods/130/images/84997/84997-1708237911-1726816969.png">
-</p>
+<p align="left"> <img height="350px" src="https://staticdelivery.nexusmods.com/mods/130/images/84997/84997-1708237911-1726816969.png"> </p>
 
 ## Overview
 - Purchase weapon mods directly through the Pip-Boy interface.
@@ -20,7 +18,7 @@
 - Configurable via the included PurchaseWeaponMods.ini.
 
 ## Requirements
-- [xNVSE](https://www.nexusmods.com/newvegas/mods/67883) (6.3.3+)
+- [xNVSE](https://www.nexusmods.com/newvegas/mods/67883)
 - [JIP LN NVSE](https://www.nexusmods.com/newvegas/mods/58277)
 - [JohnnyGuitar NVSE](https://www.nexusmods.com/newvegas/mods/66927)
 - [lStewieAl's Tweaks](https://www.nexusmods.com/newvegas/mods/66347)
